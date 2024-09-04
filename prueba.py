@@ -11,7 +11,7 @@ gamma = 0.5
 beta = 0.9
 
 ## Condiciones iniciales
-N = 50  # Numero de etapas.
+N = 20  # Numero de etapas.
 
 
 def Ak(b, g, i, k):
@@ -21,7 +21,7 @@ def Ak(b, g, i, k):
     if k == N:
         return 1
     else:
-        p1 = (1 + i) * b
+        p1 = (1 + i)**(1-g) * b
         ak1 = Ak(b, g, i, k + 1)
         p2 = p1 * ak1
         p3 = 1 + p2 ** (1 / g)
@@ -61,7 +61,7 @@ valsf[0] = beta ** N * (xn) ** (1-gamma)  # JN = CN
 
 for i in range(N - 1):
     for j in range(len(xn)):
-        Ax = np.linspace(0.00001, xn[j], 100)
+        Ax = np.linspace(0.00001, xn[j], 1000)
         ck = beta ** (N - i) * Ax ** (1-gamma)
         xk1 = (1 + irate) * (xn[j] - Ax)
         jfv = [ck[ia] + Jfk(N - i, xk1[ia]) for ia in range(len(Ax))]
