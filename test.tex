@@ -1,0 +1,343 @@
+\documentclass[oneside,spanish]{amsbook}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\geometry{verbose,tmargin=2cm,bmargin=2cm,lmargin=2cm,rmargin=2cm}
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+\usepackage{amstext}
+\usepackage{amsthm}
+
+\makeatletter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+\numberwithin{section}{chapter}
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+
+\makeatother
+
+\usepackage{babel}
+\addto\shorthandsspanish{\spanishdeactivate{~<>.}}
+\deactivatequoting
+
+\begin{document}
+\title{Modelación de Problemas y paso a Código.}
+
+\maketitle
+
+
+\chapter{Introducción}
+
+La programación se ha vuelto una herramienta fundamental al momento
+de abordar problemas, en nuestro caso, de optimización pesados. Esto
+por la dificultad de encontrar soluciónes análiticas. Sin embargo,
+gran parte de la resolución del problema, una vez se garantiza la
+solución de su existencia, es la construcción del método numérico. 
+
+\section{Notación. }
+
+En el momento de la resolución de los problemas vamos a definir algunos
+elementos. Notemos que cada problema de control óptimo $P$ puede
+verse como una tetrada
+\[
+P=\left(f,\mathcal{X},\mathcal{A},C\right),
+\]
+
+donde $f$ es la dinámica del problema, $\mathcal{X}$ el espacio
+de estados, $\mathcal{A}$ es el conjunto de acciones asociadas a
+$P$ y $C$ es la función de costo o recompensa según lo requiera
+$P.$ Con lo anterior podemos definir $A\left(x\right)$ como el conjunto
+de acciones admisibles 
+\[
+A\left(x\right)\subset\mathcal{A},x\in\mathcal{X}.
+\]
+Para los problemas que abarcaremos nuestrá dinámica $f$ va a ser
+de tal forma que 
+\[
+x_{k+1}=f\left(x_{k},a_{k}\right).
+\]
+
+Además, definiremos una situación como la colección 
+\[
+\mathcal{S}\left(x_{0},\pi\right)=\left\{ \left(x_{k},a_{k}\right)\right\} _{k=0}^{\infty},
+\]
+
+donde $\pi=\left(a_{0},\ldots\right)$ y $x_{k+1}=f\left(x_{k},a_{k}\right)$.
+Importante mencionar que $\pi$ puede ser finita, lo que haría a $\mathcal{S}$
+finita. Motivado por lo anterior denotaremos el costo total por 
+\[
+C\left(x_{0},\pi\right)=\sum_{k=0}^{\infty}c(x_{k},a_{k})
+\]
+
+recordando que si $\pi$ es finita. 
+\[
+C\left(x_{0},\pi\right)=c_{N}(x_{N})+\sum_{k=0}^{N-1}c(x_{k},a_{k}).
+\]
+
+
+\section{Metodos a implementar. }
+
+Dentro de los problemas considerados, trabajaremos dos metodologías
+similares. El algoritmo de programación dinámica, que de forma resumida,
+consiste en defnir funciones $J_{k}$ tales que 
+\begin{align*}
+J_{N}\left(x\right) & =c_{N}\left(x\right)\\
+J_{k+1}\left(x\right) & =\min_{a\in A\left(x\right)}\left\{ c\left(x,a\right)+J_{k}\left(f(x,a)\right)\right\} ,
+\end{align*}
+entonces la política óptima esta dada por una colección de funciones
+$h_{k}$, donde 
+
+\[
+h_{k}\left(x\right)=\arg\min_{a\in A(x)}\left\{ c\left(x,a\right)+J_{k}\left(f(x,a)\right)\right\} .
+\]
+
+Sin embargo, está solo funciona cuando las politicas son finitas.
+Para el caso infinito (horizonte infinito), en particular el caso
+descontado, es decir, 
+\[
+C=\sum_{k=0}^{\infty}\beta^{k}c(x_{k},a_{k}),0<\beta<1
+\]
+ tenemos el algoritmo dado por las ecuación de Bellman, que en forma
+resumida, trata de construir unas funciones $w_{k}$ donde $w_{0}$
+es continua y acotada y 
+\[
+w_{k+1}\left(x\right)=\min_{a\in A(x)}\left\{ c\left(x,a\right)+\beta w_{k}\left(f(x,a)\right)\right\} ,
+\]
+
+y para cada etapa $k$, se calculan las funciónes $h_{k}$
+
+\[
+h_{k}\left(x\right)=\arg\min_{a\in A(x)}\left\{ c\left(x,a\right)+\beta v\left(f(x,a)\right)\right\} ,v=w_{k+1}.
+\]
+
+Esto nos da politicas óptimas infinitas 
+\[
+\pi^{*}(\mathbf{x})=\left\{ h_{k}(x)\right\} _{x\in\mathbf{x}}
+\]
+
+donde $x_{0}$ fue dado y $x_{k+1}=f(x_{k},h_{k}(x_{k}))$. Entonces
+cortaremos la pólitica cuando $\|w_{k+1}-w_{k}\|<\epsilon,$ donde
+$\epsilon$ es un criterio de paro. 
+
+\chapter{Problema 1: Decisiones de Ahorro}
+
+\section{Planteamiento del problema. }
+
+Supongamos que Ricardo ha ganado el premio mayor de la Lotera Nacional
+y decide meter su dinero al banco que le ofrece una tasa de interes
+anual $i$. Al inicio del año $k$ decide retirar $a$ pesos para
+sus gastos y planea repetir este proceso $N$ veces, es decir, $k=0,1,\ldots,N$
+1. Si $x_{k}$ denota la cantidad de dinero al inicio del año $k$,
+entonces la siguiente ecuacion
+
+\[
+x_{k+1}=\left(1+i\right)\left(x_{k}-a_{k}\right)
+\]
+
+describe como va cambiando la fortuna de Ricardo en función de los
+retiros que haga. Utility theory, una empresa de consultoria, le recomienda
+a Ricardo que escoja $a_{0},\ldots,a_{N-1}$ de tal manera que maximice. 
+
+\[
+\beta^{N}\left(x_{N}\right)^{1-\gamma}+\sum_{k=0}^{N-1}\beta^{k}\left(a_{k}\right)^{1-\gamma}.
+\]
+
+La cantidad final $x_{N}$ será heredada a sus descendientes. Los
+parámetros $\beta,\gamma\in\left(0,1\right)$ fueron estimados por
+Utility Theory. Usando el APD encontraos que cada función $J_{k}$
+es de la forma $J_{k}\left(x\right)=A_{k}\beta^{k}x^{1-\gamma},$
+donde $A_{N}=1$ y para $k=N-1,\ldots,0$. 
+\[
+A_{k}=\left[1+\left[\left(1+i\right)^{1-\gamma}\beta A_{k+1}\right]^{1/\gamma}\right]^{\gamma}
+\]
+
+
+\subsubsection*{Bosquejo de Corrección de $A_{k}$ (Falta la demostración por inducción)}
+
+Considerando $J_{N}$ como sigue
+
+\[
+J_{N}\left(x\right)=\beta^{N}x^{1-\gamma}K_{N},
+\]
+
+con $K_{N}=1$ bajo la hipótesis de que 
+\[
+c_{k}\left(x,a\right)=\beta^{k}a^{1-\gamma}
+\]
+ calculamos $J_{N-1}$. 
+
+\begin{align*}
+J_{N-1}\left(x\right) & =\max_{a\in A\left(x\right)}\left\{ c_{N-1}(x,a)+J_{N}\left((1+i)(x-a)\right)\right\} \\
+ & =\max_{a\in A\left(x\right)}\left\{ \beta^{N-1}a^{1-\gamma}+\beta^{N}\left((1+i)(x-a)\right)^{1-\gamma}\right\} 
+\end{align*}
+
+Definimos el argumento como una función $q$.
+
+\begin{align*}
+q(x,a) & =\beta^{N-1}a^{1-\gamma}+\beta^{N}\left((1+i)(x-a)\right)^{1-\gamma}\\
+ & =C_{1}a^{1-\gamma}+C_{2}\left(x-a\right)^{1-\gamma},
+\end{align*}
+
+donde $C_{1}=\beta^{N-1}$ y $C_{2}=\beta^{N}(1+i)^{1-\gamma}K_{N}.$
+Como $q$ es continua en $\left(x,a\right)$. Podemos calcular el
+máximo mediante el gradiente. 
+
+\[
+\partial_{a}q=C_{1}\left(1-\gamma\right)a^{-\gamma}-C_{2}(1-\gamma)\left(x-a\right)^{-\gamma}.
+\]
+
+Igualando, $\partial_{a}q=0$. 
+\begin{align*}
+C_{1}a^{-\gamma} & =C_{2}\left(x-a\right)^{-\gamma}\\
+\dfrac{C_{1}}{C_{2}} & =\left(\dfrac{x-a}{a}\right)^{-\gamma}\\
+\left(\dfrac{C_{1}}{C_{2}}\right)^{-\frac{1}{\gamma}} & =\frac{x}{a}-1\\
+\left(\dfrac{C_{1}}{C_{2}}\right)^{-\frac{1}{\gamma}}+1 & =\frac{x}{a}\\
+a & =\dfrac{x}{\left(\dfrac{C_{1}}{C_{2}}\right)^{-\frac{1}{\gamma}}+1}
+\end{align*}
+
+Finalmente 
+\[
+a=h(x)=\dfrac{x}{\left(\beta(1+i)^{1-\gamma}\right)^{\frac{1}{\gamma}}+1}
+\]
+
+Definiendo $\eta=\left(\beta(1+i)^{1-\gamma}\right)^{\frac{1}{\gamma}}+1,$
+$\eta-1=\left(\beta(1+i)^{1-\gamma}\right)^{\frac{1}{\gamma}}$
+
+entonces 
+\[
+h(x)=\dfrac{x}{\eta},
+\]
+
+\begin{align*}
+J_{N-1}(x) & =\beta^{N-1}\left(\dfrac{x}{\eta}\right)^{1-\gamma}+\beta^{N}\left((1+i)\left(x-\dfrac{x}{\eta}\right)\right)^{1-\gamma}\\
+ & =\beta^{N-1}x^{1-\gamma}\left(\eta^{\gamma-1}+\beta\left(1+i\right)^{1-\gamma}\left(\dfrac{\eta-1}{\eta}\right)^{1-\gamma}\right)\\
+ & =\beta^{N-1}x^{1-\gamma}\eta^{\gamma-1}\left(1+\beta\left(1+i\right)^{1-\gamma}\left(\eta-1\right)^{1-\gamma}\right)\\
+ & =\beta^{N-1}x^{1-\gamma}\eta^{\gamma-1}\left(1+\beta\left(1+i\right)^{1-\gamma}\left(\eta-1\right)^{1-\gamma}\right)\\
+ & =\beta^{N-1}x^{1-\gamma}\eta^{\gamma-1}\left(1+\beta\left(1+i\right)^{1-\gamma}\left(\left(\beta(1+i)^{1-\gamma}\right)^{\frac{1}{\gamma}}\right)^{1-\gamma}\right)\\
+ & =\beta^{N-1}x^{1-\gamma}\eta^{\gamma-1}\left(1+\beta\left(1+i\right)^{1-\gamma}\left(\beta(1+i)^{1-\gamma}\right)^{\frac{1}{\gamma}-1}\right)\\
+ & =\beta^{N-1}x^{1-\gamma}\eta^{\gamma-1}\left(1+\beta^{\frac{1}{\gamma}}(1+i)^{\left(1-\gamma\right)\left(\frac{1}{\gamma}-1\right)+1-\gamma}\right)\\
+ & =\beta^{N-1}x^{1-\gamma}\eta^{\gamma-1}\left(1+\beta^{\frac{1}{\gamma}}(1+i)^{\left(\frac{1}{\gamma}-1\right)}\right)\\
+ & =\beta^{N-1}x^{1-\gamma}\eta^{\gamma},
+\end{align*}
+
+Entonces 
+\[
+K_{N-1}=\eta^{\gamma},h_{k-1}\left(x\right)=\dfrac{x}{\left(K_{N-1}\right)^{1/\gamma}}
+\]
+
+Ahora calculamos $J_{N-2}$
+
+\begin{align*}
+J_{N-2}\left(x\right) & =\max_{a\in A\left(x\right)}\left\{ \beta^{N-2}a^{1-\gamma}+\beta^{N-1}\left[\left(1+i\right)\left(x-a\right)\right]^{1-\gamma}\eta^{\gamma}\right\} \\
+ & =\max_{a\in A\left(x\right)}\left\{ q\left(x,a\right)\right\} ,
+\end{align*}
+
+donde 
+\[
+q\left(x,a\right)=C_{1}a^{1-\gamma}+C_{2}\left(x-a\right)^{1-\gamma},
+\]
+
+con $C_{1}=\beta^{N-2}$ y $C_{2}=\beta^{N-1}\left(1+i\right)^{1-\gamma}K_{N-1}$
+. Obteniendo, por recursividad 
+\begin{align*}
+h_{N-2} & =\dfrac{x}{\left(\dfrac{C_{1}}{C_{2}}\right)^{-\frac{1}{\gamma}}+1}\\
+ & =\dfrac{x}{\left(\dfrac{1}{\beta\left(1+i\right)^{1-\gamma}K_{N-1}}\right)^{-\frac{1}{\gamma}}+1}\\
+ & =\dfrac{x}{\left(\beta\left(1+i\right)^{1-\gamma}K_{N-1}\right)^{\frac{1}{\gamma}}+1}
+\end{align*}
+
+Entonces, sea 
+\begin{align*}
+\eta' & =\left(\beta\left(1+i\right)^{1-\gamma}K_{N-1}\right)^{\frac{1}{\gamma}}+1.
+\end{align*}
+
+Repitiendo, el caso anterior, tenemos que 
+\begin{align*}
+J_{N-2}\left(x\right) & =\beta^{N-2}x^{1-\gamma}\eta_{'}^{\gamma-1}\left(1+K_{N-1}\beta\left(1+i\right)^{1-\gamma}\left(\left(\beta(1+i)^{1-\gamma}K_{N-1}\right)^{\frac{1}{\gamma}}\right)^{1-\gamma}\right)\\
+ & =\beta^{N-2}x^{1-\gamma}\eta_{'}^{\gamma-1}\left(1+K_{N-1}\beta\left(1+i\right)^{1-\gamma}\left(\left(\beta(1+i)^{1-\gamma}K_{N-1}\right)^{\frac{1}{\gamma}}\right)^{1-\gamma}\right)\\
+ & =\beta^{N-2}x^{1-\gamma}\eta_{'}^{\gamma-1}\left(1+K_{N-1}\beta\left(1+i\right)^{1-\gamma}\left(\beta(1+i)^{1-\gamma}K_{N-1}\right)^{\frac{1}{\gamma}-1}\right)\\
+ & =\beta^{N-2}x^{1-\gamma}\eta_{'}^{\gamma-1}\left(1+K_{N-1}\beta\left(1+i\right)^{1-\gamma}(1+i)^{\left(1-\gamma\right)\left(\frac{1}{\gamma}-1\right)}K_{N-1}^{\frac{1}{\gamma}-1}\right)\\
+ & =\beta^{N-2}x^{1-\gamma}\eta_{'}^{\gamma-1}\left(1+K_{N-1}\beta^{1/\gamma}\left(1+i\right)^{\frac{1}{\gamma}-1}K_{N-1}^{\frac{1}{\gamma}-1}\right)\\
+ & =\beta^{N-2}x^{1-\gamma}\eta_{'}^{\gamma-1}\left(1+\beta^{1/\gamma}\left(1+i\right)^{\frac{1}{\gamma}-1}K_{N-1}^{\frac{1}{\gamma}}\right)\\
+ & =\beta^{N-2}x^{1-\gamma}\eta'{}^{\gamma},
+\end{align*}
+
+entonces 
+\[
+K_{N-2}=\eta'{}^{\gamma},
+\]
+
+y 
+\[
+h_{N-2}=\dfrac{x}{K_{N-2}^{1/\gamma}}
+\]
+
+Por lo tanto, tenemos que 
+\[
+K_{n}=\left(\beta\left(1+i\right)^{1-\gamma}K_{n+1}\right)^{\frac{1}{\gamma}}+1,n=0,1,2,\ldots,N,
+\]
+con $K_{N}=1$. Obteniendo así 
+\begin{align*}
+J_{n}\left(x\right) & =\beta^{n}x^{1-\gamma}K_{n}\\
+h_{n}\left(x\right) & =\dfrac{x}{K_{n}^{1/\gamma}}
+\end{align*}
+
+
+\section{Planteamiento de la Implementación. }
+
+Notemos que en nuestro caso $\mathcal{X},\mathcal{A}$ son espacios
+finitos. ya que para $x_{0}\in\mathcal{X}$ dado solo tomaremos $N$
+acciones. En el problema del ahorro $A\left(x\right)=[0,x]$, es decir,
+solo podemos retirar a lo más lo que tenemos en ese momento. Luego,
+identificamos que la función recompensa (Nombre habitual cuando queremos
+maximizarla, función costo en el caso contrario)
+\[
+R\left(x_{0},\pi\right)=\beta^{N}\left(x_{N}\right)^{1-\gamma}+\sum_{k=0}^{N-1}\beta^{k}\left(a_{k}\right)^{1-\gamma},
+\]
+
+donde $\pi=\left(a_{0},a_{1},\ldots,a_{N-1}\right)$. Por definición, 
+
+\chapter{El problma del lago <de Dechert y O'Donnell.}
+
+En terminos economicos, los lagos son de vital importancia en una
+comunidad agrcola. En parte, proveen de agua, peces, zonas recreativas
+y aumentan la plusvala de complejos residenciales. Por otro lado,
+son parte medular de la actividad agrcola pues sirven como vertedero
+de desechos. 
+
+Los desechos agrcolas son ricos en fosforo: nutriente principal para
+hierbas y algas marinas. En consecuencia, arrojar cantidades signicativas
+de fosforo crea condiciones favorables para el crecimiento y reproduccion
+de algas. Las algas consumen oxgeno y secretan toxinas, por ello,
+su sobrepoblacion afecta el desarrollo de peces, haciendo el lago
+inseguro para usarlo como zona recreativa y al mismo tiempo, deteriora
+la plusvala de zonas residenciales. En resumen, la descarga de fosforo
+en un lago, afecta su benecio economico. 
+
+En contraste, de forma indirecta, dichas descargas forman parte de
+la actividad agropecuaria y por consiguiente tambien se relacionan
+con la utilidad economica. Dechert y O'Donnell plantean un problema
+de optimizacion estocastica, para calcular la cantidad de fosforo
+optima a descargar en un lago, que maximice la utilidad generada por
+la actividad agrcola. En esta seccion se considera la version determinista.
+Sea $x_{k}$ el nivel de fosforo en la etapa k del lago y a la correspondiente
+descarga de fosforo. Empleando una funcion de utilidad usada por ecologistas,
+Dechert y O'Donell proponen el siguiente problema de optimización
+descontado 
+
+\[
+\max\sum_{k=0}^{\infty}\beta^{k}\left(\log\left(a_{k}+\text{eps}\right)-\kappa x_{k}^{2}\right),
+\]
+sujeto a 
+\[
+x_{k+1}=bx_{k}+\dfrac{x_{k}^{q}}{1+x_{k}^{q}}+a,
+\]
+
+donde el parámetro $b$ representa la fracción de fósforo que queda
+en el lago de un tiempo $k$ hasta un tiempo $k+1$, el parámetro
+$q$ está asociado a un punto.
+
+\section{Planteamiento Pre-Implementación}
+
+En este tipo de problemas, lo primero es definir la función de costo,
+en el caso del lago tenemos que 
+\end{document}
