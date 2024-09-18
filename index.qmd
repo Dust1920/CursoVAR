@@ -135,7 +135,9 @@ Por lo tanto, tenemos que
 $$
 K_{n}=\left(\beta\left(1+i\right)^{1-\gamma}K_{n+1}\right)^{\frac{1}{\gamma}}+1,n=0,1,2,\ldots,N,
 $$
-con $K_{N}=1$. Obteniendo así 
+con $K_{N}=1$. 
+
+Obteniendo así 
 \begin{align*}
 J_{n}\left(x\right) & =\beta^{n}x^{1-\gamma}K_{n}\\
 h_{n}\left(x\right) & =\dfrac{x}{K_{n}^{1/\gamma}}
