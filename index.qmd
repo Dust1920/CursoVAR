@@ -12,7 +12,6 @@ import numpy as np
 x = 10
 ```
 
-% Vista preliminar cuerpo
 
 \begin{align*}
 \nu\left(x\right) & =\max_{a\in A\left(x\right)}\left\{ c\left(x,a\right)+\nu\left(f\left(x,a\right)\right)\right\} \\
