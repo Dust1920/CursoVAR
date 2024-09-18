@@ -12,8 +12,141 @@ import numpy as np
 x = 10
 ```
 
-
 Ejercicio 4
+
+Considerando $J_{N}$ como sigue
+
+$$
+J_{N}\left(x\right)=\beta^{N}x^{1-\gamma}K_{N},
+$$
+
+con $K_{N}=1$ bajo la hipótesis de que 
+$$
+c_{k}\left(x,a\right)=\beta^{k}a^{1-\gamma}
+$$
+ calculamos $J_{N-1}$. 
+
+\begin{align*}
+J_{N-1}\left(x\right) & =\max_{a\in A\left(x\right)}\left\{ c_{N-1}(x,a)+J_{N}\left((1+i)(x-a)\right)\right\} \\
+ & =\max_{a\in A\left(x\right)}\left\{ \beta^{N-1}a^{1-\gamma}+\beta^{N}\left((1+i)(x-a)\right)^{1-\gamma}\right\} 
+\end{align*}
+
+Definimos el argumento como una función $q$.
+
+\begin{align*}
+q(x,a) & =\beta^{N-1}a^{1-\gamma}+\beta^{N}\left((1+i)(x-a)\right)^{1-\gamma}\\
+ & =C_{1}a^{1-\gamma}+C_{2}\left(x-a\right)^{1-\gamma},
+\end{align*}
+
+donde $C_{1}=\beta^{N-1}$ y $C_{2}=\beta^{N}(1+i)^{1-\gamma}K_{N}.$
+Como $q$ es continua en $\left(x,a\right)$. Podemos calcular el
+máximo mediante el gradiente. 
+
+$$
+\partial_{a}q=C_{1}\left(1-\gamma\right)a^{-\gamma}-C_{2}(1-\gamma)\left(x-a\right)^{-\gamma}.
+$$
+
+Igualando, $\partial_{a}q=0$. 
+\begin{align*}
+C_{1}a^{-\gamma} & =C_{2}\left(x-a\right)^{-\gamma}\\
+\dfrac{C_{1}}{C_{2}} & =\left(\dfrac{x-a}{a}\right)^{-\gamma}\\
+\left(\dfrac{C_{1}}{C_{2}}\right)^{-\frac{1}{\gamma}} & =\frac{x}{a}-1\\
+\left(\dfrac{C_{1}}{C_{2}}\right)^{-\frac{1}{\gamma}}+1 & =\frac{x}{a}\\
+a & =\dfrac{x}{\left(\dfrac{C_{1}}{C_{2}}\right)^{-\frac{1}{\gamma}}+1}
+\end{align*}
+
+Finalmente 
+$$
+a=h(x)=\dfrac{x}{\left(\beta(1+i)^{1-\gamma}\right)^{\frac{1}{\gamma}}+1}
+$$
+
+Definiendo $\eta=\left(\beta(1+i)^{1-\gamma}\right)^{\frac{1}{\gamma}}+1,$
+$\eta-1=\left(\beta(1+i)^{1-\gamma}\right)^{\frac{1}{\gamma}}$
+
+entonces 
+$$
+h(x)=\dfrac{x}{\eta},
+$$
+
+\begin{align*}
+J_{N-1}(x) & =\beta^{N-1}\left(\dfrac{x}{\eta}\right)^{1-\gamma}+\beta^{N}\left((1+i)\left(x-\dfrac{x}{\eta}\right)\right)^{1-\gamma}\\
+ & =\beta^{N-1}x^{1-\gamma}\left(\eta^{\gamma-1}+\beta\left(1+i\right)^{1-\gamma}\left(\dfrac{\eta-1}{\eta}\right)^{1-\gamma}\right)\\
+ & =\beta^{N-1}x^{1-\gamma}\eta^{\gamma-1}\left(1+\beta\left(1+i\right)^{1-\gamma}\left(\eta-1\right)^{1-\gamma}\right)\\
+ & =\beta^{N-1}x^{1-\gamma}\eta^{\gamma-1}\left(1+\beta\left(1+i\right)^{1-\gamma}\left(\eta-1\right)^{1-\gamma}\right)\\
+ & =\beta^{N-1}x^{1-\gamma}\eta^{\gamma-1}\left(1+\beta\left(1+i\right)^{1-\gamma}\left(\left(\beta(1+i)^{1-\gamma}\right)^{\frac{1}{\gamma}}\right)^{1-\gamma}\right)\\
+ & =\beta^{N-1}x^{1-\gamma}\eta^{\gamma-1}\left(1+\beta\left(1+i\right)^{1-\gamma}\left(\beta(1+i)^{1-\gamma}\right)^{\frac{1}{\gamma}-1}\right)\\
+ & =\beta^{N-1}x^{1-\gamma}\eta^{\gamma-1}\left(1+\beta^{\frac{1}{\gamma}}(1+i)^{\left(1-\gamma\right)\left(\frac{1}{\gamma}-1\right)+1-\gamma}\right)\\
+ & =\beta^{N-1}x^{1-\gamma}\eta^{\gamma-1}\left(1+\beta^{\frac{1}{\gamma}}(1+i)^{\left(\frac{1}{\gamma}-1\right)}\right)\\
+ & =\beta^{N-1}x^{1-\gamma}\eta^{\gamma},
+\end{align*}
+
+Entonces 
+$$
+K_{N-1}=\eta^{\gamma},h_{k-1}\left(x\right)=\dfrac{x}{\left(K_{N-1}\right)^{1/\gamma}}
+$$
+
+Ahora calculamos $J_{N-2}$
+
+\begin{align*}
+J_{N-2}\left(x\right) & =\max_{a\in A\left(x\right)}\left\{ \beta^{N-2}a^{1-\gamma}+\beta^{N-1}\left[\left(1+i\right)\left(x-a\right)\right]^{1-\gamma}\eta^{\gamma}\right\} \\
+ & =\max_{a\in A\left(x\right)}\left\{ q\left(x,a\right)\right\} ,
+\end{align*}
+
+donde 
+$$
+q\left(x,a\right)=C_{1}a^{1-\gamma}+C_{2}\left(x-a\right)^{1-\gamma},
+$$
+
+con $C_{1}=\beta^{N-2}$ y $C_{2}=\beta^{N-1}\left(1+i\right)^{1-\gamma}K_{N-1}$
+. Obteniendo, por recursividad 
+\begin{align*}
+h_{N-2} & =\dfrac{x}{\left(\dfrac{C_{1}}{C_{2}}\right)^{-\frac{1}{\gamma}}+1}\\
+ & =\dfrac{x}{\left(\dfrac{1}{\beta\left(1+i\right)^{1-\gamma}K_{N-1}}\right)^{-\frac{1}{\gamma}}+1}\\
+ & =\dfrac{x}{\left(\beta\left(1+i\right)^{1-\gamma}K_{N-1}\right)^{\frac{1}{\gamma}}+1}
+\end{align*}
+
+Entonces, sea 
+\begin{align*}
+\eta' & =\left(\beta\left(1+i\right)^{1-\gamma}K_{N-1}\right)^{\frac{1}{\gamma}}+1.
+\end{align*}
+
+Repitiendo, el caso anterior, tenemos que 
+\begin{align*}
+J_{N-2}\left(x\right) & =\beta^{N-2}x^{1-\gamma}\eta_{'}^{\gamma-1}\left(1+K_{N-1}\beta\left(1+i\right)^{1-\gamma}\left(\left(\beta(1+i)^{1-\gamma}K_{N-1}\right)^{\frac{1}{\gamma}}\right)^{1-\gamma}\right)\\
+ & =\beta^{N-2}x^{1-\gamma}\eta_{'}^{\gamma-1}\left(1+K_{N-1}\beta\left(1+i\right)^{1-\gamma}\left(\left(\beta(1+i)^{1-\gamma}K_{N-1}\right)^{\frac{1}{\gamma}}\right)^{1-\gamma}\right)\\
+ & =\beta^{N-2}x^{1-\gamma}\eta_{'}^{\gamma-1}\left(1+K_{N-1}\beta\left(1+i\right)^{1-\gamma}\left(\beta(1+i)^{1-\gamma}K_{N-1}\right)^{\frac{1}{\gamma}-1}\right)\\
+ & =\beta^{N-2}x^{1-\gamma}\eta_{'}^{\gamma-1}\left(1+K_{N-1}\beta\left(1+i\right)^{1-\gamma}(1+i)^{\left(1-\gamma\right)\left(\frac{1}{\gamma}-1\right)}K_{N-1}^{\frac{1}{\gamma}-1}\right)\\
+ & =\beta^{N-2}x^{1-\gamma}\eta_{'}^{\gamma-1}\left(1+K_{N-1}\beta^{1/\gamma}\left(1+i\right)^{\frac{1}{\gamma}-1}K_{N-1}^{\frac{1}{\gamma}-1}\right)\\
+ & =\beta^{N-2}x^{1-\gamma}\eta_{'}^{\gamma-1}\left(1+\beta^{1/\gamma}\left(1+i\right)^{\frac{1}{\gamma}-1}K_{N-1}^{\frac{1}{\gamma}}\right)\\
+ & =\beta^{N-2}x^{1-\gamma}\eta'{}^{\gamma},
+\end{align*}
+
+entonces 
+$$
+K_{N-2}=\eta'{}^{\gamma},
+$$
+
+y 
+$$
+h_{N-2}=\dfrac{x}{K_{N-2}^{1/\gamma}}
+$$
+
+Por lo tanto, tenemos que 
+$$
+K_{n}=\left(\beta\left(1+i\right)^{1-\gamma}K_{n+1}\right)^{\frac{1}{\gamma}}+1,n=0,1,2,\ldots,N,
+$$
+con $K_{N}=1$. Obteniendo así 
+\begin{align*}
+J_{n}\left(x\right) & =\beta^{n}x^{1-\gamma}K_{n}\\
+h_{n}\left(x\right) & =\dfrac{x}{K_{n}^{1/\gamma}}
+\end{align*}
+
+
+
+
+
+
+Ejercicio 5
 
 Para el caso infinito. Estamos considerando 
 $$
