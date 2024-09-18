@@ -215,7 +215,53 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>% Vista preliminar cuerpo</p>
+<p>Ejercicio 4</p>
+<p>Para el caso infinito. Estamos considerando <span class="math display">\[
+c\left(x,a\right)=a^{1-\gamma}
+\]</span></p>
+<p>Entonces <span class="math display">\[
+\nu\left(x\right)=\max_{a\in A\left(x\right)}\left\{ a^{1-\gamma}+\beta\nu\left(\left(1+i\right)\left(x-a\right)\right)\right\} ,
+\]</span></p>
+<p>considerando <span class="math inline">\(\nu\left(x\right)=cx^{1-\gamma}.\)</span> Entonces <span class="math display">\[
+\nu\left(x\right)=\max_{a\in A\left(x\right)}\left\{ a^{1-\gamma}+\beta c\left[\left(1+i\right)\left(x-a\right)\right]^{1-\gamma}\right\} ,
+\]</span></p>
+<p>definimos <span class="math display">\[
+q\left(x,a\right)=a^{1-\gamma}+\beta c\left[\left(1+i\right)\left(x-a\right)\right]^{1-\gamma},
+\]</span> entonces <span class="math display">\[
+\partial_{a}q=\left(1-\gamma\right)a^{-\gamma}+\beta c\left(1-\gamma\right)\left(1+i\right)^{1-\gamma}\left(-1\right)\left(x-a\right)^{-\gamma}.
+\]</span></p>
+<p>Si <span class="math inline">\(\partial_{a}q=0\)</span>. Entonces</p>
+<p><span class="math display">\[\begin{align*}
+a^{-\gamma} &amp; =\beta c\left(1+i\right)^{1-\gamma}\left(x-a\right)^{-\gamma}\\
+\left(\beta c\left(1+i\right)^{1-\gamma}\right)^{-1} &amp; =\left(\dfrac{x-a}{a}\right)^{-\gamma}\\
+\beta^{-1}c^{-1}\left(1+i\right)^{\gamma-1} &amp; =\left(\dfrac{x}{a}-1\right)^{-\gamma}\\
+\left[\beta^{-1}c^{-1}\left(1+i\right)^{\gamma-1}\right]^{-\frac{1}{\gamma}}+1 &amp; =\dfrac{x}{a}
+\end{align*}\]</span></p>
+<p>Por lo tanto <span class="math display">\[\begin{align*}
+a &amp; =\dfrac{x}{\left[\beta^{-1}c^{-1}\left(1+i\right)^{\gamma-1}\right]^{-\frac{1}{\gamma}}+1}\\
+&amp; =\dfrac{x}{\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}}+1}
+\end{align*}\]</span></p>
+<p>Ahora remplazamos en <span class="math inline">\(q\)</span> <span class="math display">\[\begin{align*}
+\nu\left(x\right) &amp; =\left(\dfrac{x}{\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}}+1}\right)^{1-\gamma}+\beta c\left[\left(1+i\right)\left(x-\dfrac{x}{\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}}+1}\right)\right]^{1-\gamma}\\
+&amp; =x^{1-\gamma}\left(\dfrac{1}{\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}}+1}\right)+x^{1-\gamma}\left(1+i\right)^{1-\gamma}\beta c\left(1-\dfrac{1}{\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}}+1}\right)^{1-\gamma}\\
+&amp; =x^{1-\gamma}\left[\left(\dfrac{1}{\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}}+1}\right)+\left(1+i\right)^{1-\gamma}\beta c\left(1-\dfrac{1}{\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}}+1}\right)^{1-\gamma}\right].
+\end{align*}\]</span> Entonces</p>
+<p><span class="math display">\[\begin{align*}
+c &amp; =\left(\dfrac{1}{\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}}+1}\right)^{1-\gamma}+\left(1+i\right)^{1-\gamma}\beta c\left(1-\dfrac{1}{\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}}+1}\right)^{1-\gamma}\\
+&amp; =\left(\dfrac{1}{\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}}+1}\right)^{1-\gamma}+\left(1+i\right)^{1-\gamma}\beta c\left(\dfrac{\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}}}{\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}}+1}\right)^{1-\gamma}\\
+&amp; =\left(\dfrac{1}{\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}}+1}\right)^{1-\gamma}\left(1+\left(1+i\right)^{1-\gamma}\beta c\left(\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}}\right)^{1-\gamma}\right)\\
+&amp; =\left(\dfrac{1}{\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}}+1}\right)^{1-\gamma}\left(1+\left(1+i\right)^{1-\gamma}\beta c\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}-1}\right)\\
+&amp; =\left(\dfrac{1}{\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}}+1}\right)^{1-\gamma}\left(1+\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}}\right)\\
+&amp; =\left(\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}}+1\right)^{\gamma-1}\left(1+\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}}\right)\\
+c &amp; =\left(\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}}+1\right)^{\gamma}
+\end{align*}\]</span></p>
+<p>Ahora, nos queda despejar <span class="math inline">\(c\)</span>. <span class="math display">\[\begin{align*}
+c^{\frac{1}{\gamma}} &amp; =\beta^{\frac{1}{\gamma}}c^{\frac{1}{\gamma}}\left(1+i\right)^{\frac{1}{\gamma}-1}+1\\
+1 &amp; =\beta^{\frac{1}{\gamma}}\left(1+i\right)^{\frac{1}{\gamma}-1}+c^{-\frac{1}{\gamma}}\\
+c^{-\frac{1}{\gamma}} &amp; =1-\beta^{\frac{1}{\gamma}}\left(1+i\right)^{\frac{1}{\gamma}-1}\\
+c &amp; =\left(1-\beta^{\frac{1}{\gamma}}\left(1+i\right)^{\frac{1}{\gamma}-1}\right)^{-\gamma}
+\end{align*}\]</span></p>
+<p>Ejercicio 6</p>
 <p><span class="math display">\[\begin{align*}
 \nu\left(x\right) &amp; =\max_{a\in A\left(x\right)}\left\{ c\left(x,a\right)+\nu\left(f\left(x,a\right)\right)\right\} \\
 &amp; =\max_{a\in A\left(x\right)}\left\{ a^{2}+x^{2}+E\left[\nu\left(x+a+\xi\right)\right]\right\}
