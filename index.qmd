@@ -4,6 +4,14 @@ This is a Quarto book.
 
 To learn more about Quarto books visit <https://quarto.org/docs/books>.
 
+
+
+```{python}
+import numpy as np
+
+x = 10
+```
+
 % Vista preliminar cuerpo
 
 \begin{align*}
