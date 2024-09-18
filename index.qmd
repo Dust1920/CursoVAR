@@ -3,3 +3,76 @@
 This is a Quarto book.
 
 To learn more about Quarto books visit <https://quarto.org/docs/books>.
+
+% Vista preliminar cuerpo
+
+\begin{align*}
+\nu\left(x\right) & =\max_{a\in A\left(x\right)}\left\{ c\left(x,a\right)+\nu\left(f\left(x,a\right)\right)\right\} \\
+ & =\max_{a\in A\left(x\right)}\left\{ a^{2}+x^{2}+E\left[\nu\left(x+a+\xi\right)\right]\right\} 
+\end{align*}
+
+Para $\nu\left(x\right)=ax^{2}+b$
+
+\begin{align*}
+\nu\left(x\right) & =\max_{a\in A\left(x\right)}\left\{ c\left(x,a\right)+\beta E\left[\nu\left(f\left(x,a\right)\right)\right]\right\} \\
+ & =\max_{a\in A\left(x\right)}\left\{ A^{2}+x^{2}+\beta\left(E\left[a\left(f^{2}\left(x,a\right)\right)\right]+b\right)\right\} \\
+ & =\max_{a\in A\left(x\right)}\left\{ A^{2}+x^{2}+\beta\left(aE\left[f^{2}\left(x,a\right)\right]+b\right)\right\} 
+\end{align*}
+
+Notemos que 
+\begin{align*}
+E\left[f^{2}\left(x,a\right)\right] & =E\left[\left(x+A+\xi\right)^{2}\right]\\
+ & =E\left[x^{2}+A^{2}+\xi^{2}+2xA+2x\xi+2\xi A\right]\\
+ & =x^{2}+A^{2}+E\left[\xi^{2}\right]+2xA+2xE\left[\xi\right]+2AE\left[\xi\right]\\
+ & =x^{2}+A^{2}+d+2xA
+\end{align*}
+
+Entonces 
+\begin{align*}
+ax^{2}+b & =\max_{a\in A\left(x\right)}\left\{ A^{2}+x^{2}+\beta\left[a\left(x^{2}+A^{2}+d+2xA\right)+b\right]\right\} \\
+ & =\max_{a\in A\left(x\right)}\left\{ A^{2}+x^{2}+\beta a\left(x^{2}+A^{2}+d+2xA\right)+\beta b\right\} \\
+ & =\max_{a\in A\left(x\right)}\left\{ A^{2}+x^{2}+\beta ax^{2}+\beta aA^{2}+\beta ad+2\beta axA+\beta b\right\} \\
+ & =\max_{a\in A\left(x\right)}\left\{ A^{2}\left(\beta a+1\right)+2\beta axA+x^{2}+\beta ax^{2}+\beta ad+\beta b\right\} 
+\end{align*}
+
+Definimos 
+$$
+w\left(x,A\right)=A^{2}\left(\beta a+1\right)+2\beta axA+x^{2}+\beta ax^{2}+\beta ad+\beta b,
+$$
+
+entonces 
+$$
+\partial_{A}w=2A\left(\beta a+1\right)+2\beta ax.
+$$
+
+Si $\partial_{A}w=0$, entonces 
+$$
+A=-\dfrac{\beta ax}{\beta a+1}
+$$
+
+Entonces
+\begin{align*}
+\nu\left(x\right) & =\left(\beta ax\right)^{2}-2\dfrac{\left(\beta ax\right)^{2}}{\beta a+1}+x^{2}+\beta ax^{2}+\beta ad+\beta b\\
+ & =x^{2}\left(\left[\beta a\right]^{2}-2\dfrac{\left(\beta a\right)^{2}}{\beta a+1}+1+\beta a\right)+\beta ad+\beta b
+\end{align*}
+
+Entonces 
+\begin{align*}
+a & =\left[\beta a\right]^{2}-2\dfrac{\left(\beta a\right)^{2}}{\beta a+1}+1+\beta a\\
+b & =\beta ad+\beta b,
+\end{align*}
+de forma rapida 
+
+$$
+b=\dfrac{\beta ad}{1-\beta},
+$$
+entonces queda pendiente calcular $a$ 
+
+\begin{align*}
+a & =\left[\beta a\right]^{2}-2\dfrac{\left(\beta a\right)^{2}}{\beta a+1}+1+\beta a.\\
+0 & =\left(\beta a\right)^{2}\left(1-\dfrac{2}{\beta a+1}\right)+1+\left(\beta-1\right)a\\
+ & =\left(\beta a\right)^{2}\left(\beta a+1-2\right)+\beta a+1+\left(a\beta-a\right)\left(\beta a+1\right)\\
+ & =\left(\beta a\right)^{2}\left(\beta a-1\right)+\beta a+1+\left[\left(a\beta\right)^{2}+a\beta-\beta a^{2}-a\right]\\
+ & =\left(\beta a\right)^{3}+2a\beta+1-\beta a^{2}-a\\
+ & =\beta^{3}a^{3}-\beta a^{2}+\left(2\beta-1\right)a+1
+\end{align*}
