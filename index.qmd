@@ -1,16 +1,25 @@
 # Preface {.unnumbered}
 
-This is a Quarto book.
-
-To learn more about Quarto books visit <https://quarto.org/docs/books>.
 
 
+Ejercicio 2
+
+La expresión presentada en el video [Reinforcement Learning.](https://www.youtube.com/watch?v=0MNVhXEX9to&list=PLMrJAkhIeNNQe1JXNvaFvURxGY4gE9k74)
+$$
+V_\pi (s) = E\left[\left. \sum_{t}\gamma^t r_t \right| s_0 = s\right]
+$$
+
+hace referencia a la función de valor del problema de optimización representada por la recompensa esperada dado la politica $\pi$ y el estado inicial $s$. Aquí $\gamma$ es el factor de descuento y $r_t$ es la recompensa por etapa $t$. 
 
 ```{python}
 import numpy as np
 
 x = 10
 ```
+
+
+
+
 
 Ejercicio 4
 
@@ -142,10 +151,6 @@ Obteniendo así
 J_{n}\left(x\right) & =\beta^{n}x^{1-\gamma}K_{n}\\
 h_{n}\left(x\right) & =\dfrac{x}{K_{n}^{1/\gamma}}
 \end{align*}
-
-
-
-
 
 
 Ejercicio 5
