@@ -1,13 +1,298 @@
 # Preface {.unnumbered}
 
-This is a Quarto book.
-
-To learn more about Quarto books visit <https://quarto.org/docs/books>.
 
 
+Ejercicio 2
+
+La expresión presentada en el video [Reinforcement Learning.](https://www.youtube.com/watch?v=0MNVhXEX9to&list=PLMrJAkhIeNNQe1JXNvaFvURxGY4gE9k74)
+$$
+V_\pi (s) = E\left[\left. \sum_{t}\gamma^t r_t \right| s_0 = s\right]
+$$
+
+hace referencia a la función de valor del problema de optimización representada por la recompensa esperada dado la politica $\pi$ y el estado inicial $s$. Aquí $\gamma$ es el factor de descuento y $r_t$ es la recompensa por etapa $t$. 
 
 ```{python}
 import numpy as np
 
 x = 10
 ```
+
+
+
+
+
+Ejercicio 4
+
+Considerando $J_{N}$ como sigue
+
+$$
+J_{N}\left(x\right)=\beta^{N}x^{1-\gamma}K_{N},
+$$
+
+con $K_{N}=1$ bajo la hipótesis de que 
+$$
+c_{k}\left(x,a\right)=\beta^{k}a^{1-\gamma}
+$$
+ calculamos $J_{N-1}$. 
+
+\begin{align*}
+J_{N-1}\left(x\right) & =\max_{a\in A\left(x\right)}\left\{ c_{N-1}(x,a)+J_{N}\left((1+i)(x-a)\right)\right\} \\
+ & =\max_{a\in A\left(x\right)}\left\{ \beta^{N-1}a^{1-\gamma}+\beta^{N}\left((1+i)(x-a)\right)^{1-\gamma}\right\} 
+\end{align*}
+
+Definimos el argumento como una función $q$.
+
+\begin{align*}
+q(x,a) & =\beta^{N-1}a^{1-\gamma}+\beta^{N}\left((1+i)(x-a)\right)^{1-\gamma}\\
+ & =C_{1}a^{1-\gamma}+C_{2}\left(x-a\right)^{1-\gamma},
+\end{align*}
+
+donde $C_{1}=\beta^{N-1}$ y $C_{2}=\beta^{N}(1+i)^{1-\gamma}K_{N}.$
+Como $q$ es continua en $\left(x,a\right)$. Podemos calcular el
+máximo mediante el gradiente. 
+
+$$
+\partial_{a}q=C_{1}\left(1-\gamma\right)a^{-\gamma}-C_{2}(1-\gamma)\left(x-a\right)^{-\gamma}.
+$$
+
+Igualando, $\partial_{a}q=0$. 
+\begin{align*}
+C_{1}a^{-\gamma} & =C_{2}\left(x-a\right)^{-\gamma}\\
+\dfrac{C_{1}}{C_{2}} & =\left(\dfrac{x-a}{a}\right)^{-\gamma}\\
+\left(\dfrac{C_{1}}{C_{2}}\right)^{-\frac{1}{\gamma}} & =\frac{x}{a}-1\\
+\left(\dfrac{C_{1}}{C_{2}}\right)^{-\frac{1}{\gamma}}+1 & =\frac{x}{a}\\
+a & =\dfrac{x}{\left(\dfrac{C_{1}}{C_{2}}\right)^{-\frac{1}{\gamma}}+1}
+\end{align*}
+
+Finalmente 
+$$
+a=h(x)=\dfrac{x}{\left(\beta(1+i)^{1-\gamma}\right)^{\frac{1}{\gamma}}+1}
+$$
+
+Definiendo $\eta=\left(\beta(1+i)^{1-\gamma}\right)^{\frac{1}{\gamma}}+1,$
+$\eta-1=\left(\beta(1+i)^{1-\gamma}\right)^{\frac{1}{\gamma}}$
+
+entonces 
+$$
+h(x)=\dfrac{x}{\eta},
+$$
+
+\begin{align*}
+J_{N-1}(x) & =\beta^{N-1}\left(\dfrac{x}{\eta}\right)^{1-\gamma}+\beta^{N}\left((1+i)\left(x-\dfrac{x}{\eta}\right)\right)^{1-\gamma}\\
+ & =\beta^{N-1}x^{1-\gamma}\left(\eta^{\gamma-1}+\beta\left(1+i\right)^{1-\gamma}\left(\dfrac{\eta-1}{\eta}\right)^{1-\gamma}\right)\\
+ & =\beta^{N-1}x^{1-\gamma}\eta^{\gamma-1}\left(1+\beta\left(1+i\right)^{1-\gamma}\left(\eta-1\right)^{1-\gamma}\right)\\
+ & =\beta^{N-1}x^{1-\gamma}\eta^{\gamma-1}\left(1+\beta\left(1+i\right)^{1-\gamma}\left(\eta-1\right)^{1-\gamma}\right)\\
+ & =\beta^{N-1}x^{1-\gamma}\eta^{\gamma-1}\left(1+\beta\left(1+i\right)^{1-\gamma}\left(\left(\beta(1+i)^{1-\gamma}\right)^{\frac{1}{\gamma}}\right)^{1-\gamma}\right)\\
+ & =\beta^{N-1}x^{1-\gamma}\eta^{\gamma-1}\left(1+\beta\left(1+i\right)^{1-\gamma}\left(\beta(1+i)^{1-\gamma}\right)^{\frac{1}{\gamma}-1}\right)\\
+ & =\beta^{N-1}x^{1-\gamma}\eta^{\gamma-1}\left(1+\beta^{\frac{1}{\gamma}}(1+i)^{\left(1-\gamma\right)\left(\frac{1}{\gamma}-1\right)+1-\gamma}\right)\\
+ & =\beta^{N-1}x^{1-\gamma}\eta^{\gamma-1}\left(1+\beta^{\frac{1}{\gamma}}(1+i)^{\left(\frac{1}{\gamma}-1\right)}\right)\\
+ & =\beta^{N-1}x^{1-\gamma}\eta^{\gamma},
+\end{align*}
+
+Entonces 
+$$
+K_{N-1}=\eta^{\gamma},h_{k-1}\left(x\right)=\dfrac{x}{\left(K_{N-1}\right)^{1/\gamma}}
+$$
+
+Ahora calculamos $J_{N-2}$
+
+\begin{align*}
+J_{N-2}\left(x\right) & =\max_{a\in A\left(x\right)}\left\{ \beta^{N-2}a^{1-\gamma}+\beta^{N-1}\left[\left(1+i\right)\left(x-a\right)\right]^{1-\gamma}\eta^{\gamma}\right\} \\
+ & =\max_{a\in A\left(x\right)}\left\{ q\left(x,a\right)\right\} ,
+\end{align*}
+
+donde 
+$$
+q\left(x,a\right)=C_{1}a^{1-\gamma}+C_{2}\left(x-a\right)^{1-\gamma},
+$$
+
+con $C_{1}=\beta^{N-2}$ y $C_{2}=\beta^{N-1}\left(1+i\right)^{1-\gamma}K_{N-1}$
+. Obteniendo, por recursividad 
+\begin{align*}
+h_{N-2} & =\dfrac{x}{\left(\dfrac{C_{1}}{C_{2}}\right)^{-\frac{1}{\gamma}}+1}\\
+ & =\dfrac{x}{\left(\dfrac{1}{\beta\left(1+i\right)^{1-\gamma}K_{N-1}}\right)^{-\frac{1}{\gamma}}+1}\\
+ & =\dfrac{x}{\left(\beta\left(1+i\right)^{1-\gamma}K_{N-1}\right)^{\frac{1}{\gamma}}+1}
+\end{align*}
+
+Entonces, sea 
+\begin{align*}
+\eta' & =\left(\beta\left(1+i\right)^{1-\gamma}K_{N-1}\right)^{\frac{1}{\gamma}}+1.
+\end{align*}
+
+Repitiendo, el caso anterior, tenemos que 
+\begin{align*}
+J_{N-2}\left(x\right) & =\beta^{N-2}x^{1-\gamma}\eta_{'}^{\gamma-1}\left(1+K_{N-1}\beta\left(1+i\right)^{1-\gamma}\left(\left(\beta(1+i)^{1-\gamma}K_{N-1}\right)^{\frac{1}{\gamma}}\right)^{1-\gamma}\right)\\
+ & =\beta^{N-2}x^{1-\gamma}\eta_{'}^{\gamma-1}\left(1+K_{N-1}\beta\left(1+i\right)^{1-\gamma}\left(\left(\beta(1+i)^{1-\gamma}K_{N-1}\right)^{\frac{1}{\gamma}}\right)^{1-\gamma}\right)\\
+ & =\beta^{N-2}x^{1-\gamma}\eta_{'}^{\gamma-1}\left(1+K_{N-1}\beta\left(1+i\right)^{1-\gamma}\left(\beta(1+i)^{1-\gamma}K_{N-1}\right)^{\frac{1}{\gamma}-1}\right)\\
+ & =\beta^{N-2}x^{1-\gamma}\eta_{'}^{\gamma-1}\left(1+K_{N-1}\beta\left(1+i\right)^{1-\gamma}(1+i)^{\left(1-\gamma\right)\left(\frac{1}{\gamma}-1\right)}K_{N-1}^{\frac{1}{\gamma}-1}\right)\\
+ & =\beta^{N-2}x^{1-\gamma}\eta_{'}^{\gamma-1}\left(1+K_{N-1}\beta^{1/\gamma}\left(1+i\right)^{\frac{1}{\gamma}-1}K_{N-1}^{\frac{1}{\gamma}-1}\right)\\
+ & =\beta^{N-2}x^{1-\gamma}\eta_{'}^{\gamma-1}\left(1+\beta^{1/\gamma}\left(1+i\right)^{\frac{1}{\gamma}-1}K_{N-1}^{\frac{1}{\gamma}}\right)\\
+ & =\beta^{N-2}x^{1-\gamma}\eta'{}^{\gamma},
+\end{align*}
+
+entonces 
+$$
+K_{N-2}=\eta'{}^{\gamma},
+$$
+
+y 
+$$
+h_{N-2}=\dfrac{x}{K_{N-2}^{1/\gamma}}
+$$
+
+Por lo tanto, tenemos que 
+$$
+K_{n}=\left(\beta\left(1+i\right)^{1-\gamma}K_{n+1}\right)^{\frac{1}{\gamma}}+1,n=0,1,2,\ldots,N,
+$$
+con $K_{N}=1$. 
+
+Obteniendo así 
+\begin{align*}
+J_{n}\left(x\right) & =\beta^{n}x^{1-\gamma}K_{n}\\
+h_{n}\left(x\right) & =\dfrac{x}{K_{n}^{1/\gamma}}
+\end{align*}
+
+
+Ejercicio 5
+
+Para el caso infinito. Estamos considerando 
+$$
+c\left(x,a\right)=a^{1-\gamma}
+$$
+
+Entonces 
+$$
+\nu\left(x\right)=\max_{a\in A\left(x\right)}\left\{ a^{1-\gamma}+\beta\nu\left(\left(1+i\right)\left(x-a\right)\right)\right\} ,
+$$
+
+considerando $\nu\left(x\right)=cx^{1-\gamma}.$ Entonces 
+$$
+\nu\left(x\right)=\max_{a\in A\left(x\right)}\left\{ a^{1-\gamma}+\beta c\left[\left(1+i\right)\left(x-a\right)\right]^{1-\gamma}\right\} ,
+$$
+
+definimos 
+$$
+q\left(x,a\right)=a^{1-\gamma}+\beta c\left[\left(1+i\right)\left(x-a\right)\right]^{1-\gamma},
+$$
+entonces 
+$$
+\partial_{a}q=\left(1-\gamma\right)a^{-\gamma}+\beta c\left(1-\gamma\right)\left(1+i\right)^{1-\gamma}\left(-1\right)\left(x-a\right)^{-\gamma}.
+$$
+
+Si $\partial_{a}q=0$. Entonces 
+
+\begin{align*}
+a^{-\gamma} & =\beta c\left(1+i\right)^{1-\gamma}\left(x-a\right)^{-\gamma}\\
+\left(\beta c\left(1+i\right)^{1-\gamma}\right)^{-1} & =\left(\dfrac{x-a}{a}\right)^{-\gamma}\\
+\beta^{-1}c^{-1}\left(1+i\right)^{\gamma-1} & =\left(\dfrac{x}{a}-1\right)^{-\gamma}\\
+\left[\beta^{-1}c^{-1}\left(1+i\right)^{\gamma-1}\right]^{-\frac{1}{\gamma}}+1 & =\dfrac{x}{a}
+\end{align*}
+
+Por lo tanto 
+\begin{align*}
+a & =\dfrac{x}{\left[\beta^{-1}c^{-1}\left(1+i\right)^{\gamma-1}\right]^{-\frac{1}{\gamma}}+1}\\
+ & =\dfrac{x}{\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}}+1}
+\end{align*}
+
+Ahora remplazamos en $q$ 
+\begin{align*}
+\nu\left(x\right) & =\left(\dfrac{x}{\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}}+1}\right)^{1-\gamma}+\beta c\left[\left(1+i\right)\left(x-\dfrac{x}{\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}}+1}\right)\right]^{1-\gamma}\\
+ & =x^{1-\gamma}\left(\dfrac{1}{\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}}+1}\right)+x^{1-\gamma}\left(1+i\right)^{1-\gamma}\beta c\left(1-\dfrac{1}{\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}}+1}\right)^{1-\gamma}\\
+ & =x^{1-\gamma}\left[\left(\dfrac{1}{\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}}+1}\right)+\left(1+i\right)^{1-\gamma}\beta c\left(1-\dfrac{1}{\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}}+1}\right)^{1-\gamma}\right].
+\end{align*}
+Entonces 
+
+\begin{align*}
+c & =\left(\dfrac{1}{\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}}+1}\right)^{1-\gamma}+\left(1+i\right)^{1-\gamma}\beta c\left(1-\dfrac{1}{\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}}+1}\right)^{1-\gamma}\\
+ & =\left(\dfrac{1}{\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}}+1}\right)^{1-\gamma}+\left(1+i\right)^{1-\gamma}\beta c\left(\dfrac{\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}}}{\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}}+1}\right)^{1-\gamma}\\
+ & =\left(\dfrac{1}{\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}}+1}\right)^{1-\gamma}\left(1+\left(1+i\right)^{1-\gamma}\beta c\left(\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}}\right)^{1-\gamma}\right)\\
+ & =\left(\dfrac{1}{\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}}+1}\right)^{1-\gamma}\left(1+\left(1+i\right)^{1-\gamma}\beta c\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}-1}\right)\\
+ & =\left(\dfrac{1}{\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}}+1}\right)^{1-\gamma}\left(1+\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}}\right)\\
+ & =\left(\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}}+1\right)^{\gamma-1}\left(1+\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}}\right)\\
+c & =\left(\left[\beta c\left(1+i\right)^{1-\gamma}\right]^{\frac{1}{\gamma}}+1\right)^{\gamma}
+\end{align*}
+
+Ahora, nos queda despejar $c$. 
+\begin{align*}
+c^{\frac{1}{\gamma}} & =\beta^{\frac{1}{\gamma}}c^{\frac{1}{\gamma}}\left(1+i\right)^{\frac{1}{\gamma}-1}+1\\
+1 & =\beta^{\frac{1}{\gamma}}\left(1+i\right)^{\frac{1}{\gamma}-1}+c^{-\frac{1}{\gamma}}\\
+c^{-\frac{1}{\gamma}} & =1-\beta^{\frac{1}{\gamma}}\left(1+i\right)^{\frac{1}{\gamma}-1}\\
+c & =\left(1-\beta^{\frac{1}{\gamma}}\left(1+i\right)^{\frac{1}{\gamma}-1}\right)^{-\gamma}
+\end{align*}
+
+
+
+
+Ejercicio 6
+
+
+\begin{align*}
+\nu\left(x\right) & =\max_{a\in A\left(x\right)}\left\{ c\left(x,a\right)+\nu\left(f\left(x,a\right)\right)\right\} \\
+ & =\max_{a\in A\left(x\right)}\left\{ a^{2}+x^{2}+E\left[\nu\left(x+a+\xi\right)\right]\right\} 
+\end{align*}
+
+Para $\nu\left(x\right)=ax^{2}+b$
+
+\begin{align*}
+\nu\left(x\right) & =\max_{a\in A\left(x\right)}\left\{ c\left(x,a\right)+\beta E\left[\nu\left(f\left(x,a\right)\right)\right]\right\} \\
+ & =\max_{a\in A\left(x\right)}\left\{ A^{2}+x^{2}+\beta\left(E\left[a\left(f^{2}\left(x,a\right)\right)\right]+b\right)\right\} \\
+ & =\max_{a\in A\left(x\right)}\left\{ A^{2}+x^{2}+\beta\left(aE\left[f^{2}\left(x,a\right)\right]+b\right)\right\} 
+\end{align*}
+
+Notemos que 
+\begin{align*}
+E\left[f^{2}\left(x,a\right)\right] & =E\left[\left(x+A+\xi\right)^{2}\right]\\
+ & =E\left[x^{2}+A^{2}+\xi^{2}+2xA+2x\xi+2\xi A\right]\\
+ & =x^{2}+A^{2}+E\left[\xi^{2}\right]+2xA+2xE\left[\xi\right]+2AE\left[\xi\right]\\
+ & =x^{2}+A^{2}+d+2xA
+\end{align*}
+
+Entonces 
+\begin{align*}
+ax^{2}+b & =\max_{a\in A\left(x\right)}\left\{ A^{2}+x^{2}+\beta\left[a\left(x^{2}+A^{2}+d+2xA\right)+b\right]\right\} \\
+ & =\max_{a\in A\left(x\right)}\left\{ A^{2}+x^{2}+\beta a\left(x^{2}+A^{2}+d+2xA\right)+\beta b\right\} \\
+ & =\max_{a\in A\left(x\right)}\left\{ A^{2}+x^{2}+\beta ax^{2}+\beta aA^{2}+\beta ad+2\beta axA+\beta b\right\} \\
+ & =\max_{a\in A\left(x\right)}\left\{ A^{2}\left(\beta a+1\right)+2\beta axA+x^{2}+\beta ax^{2}+\beta ad+\beta b\right\} 
+\end{align*}
+
+Definimos 
+$$
+w\left(x,A\right)=A^{2}\left(\beta a+1\right)+2\beta axA+x^{2}+\beta ax^{2}+\beta ad+\beta b,
+$$
+
+entonces 
+$$
+\partial_{A}w=2A\left(\beta a+1\right)+2\beta ax.
+$$
+
+Si $\partial_{A}w=0$, entonces 
+$$
+A=-\dfrac{\beta ax}{\beta a+1}
+$$
+
+Entonces
+\begin{align*}
+\nu\left(x\right) & =\left(\beta ax\right)^{2}-2\dfrac{\left(\beta ax\right)^{2}}{\beta a+1}+x^{2}+\beta ax^{2}+\beta ad+\beta b\\
+ & =x^{2}\left(\left[\beta a\right]^{2}-2\dfrac{\left(\beta a\right)^{2}}{\beta a+1}+1+\beta a\right)+\beta ad+\beta b
+\end{align*}
+
+Entonces 
+\begin{align*}
+a & =\left[\beta a\right]^{2}-2\dfrac{\left(\beta a\right)^{2}}{\beta a+1}+1+\beta a\\
+b & =\beta ad+\beta b,
+\end{align*}
+de forma rapida 
+
+$$
+b=\dfrac{\beta ad}{1-\beta},
+$$
+entonces queda pendiente calcular $a$ 
+
+\begin{align*}
+a & =\left[\beta a\right]^{2}-2\dfrac{\left(\beta a\right)^{2}}{\beta a+1}+1+\beta a.\\
+0 & =\left(\beta a\right)^{2}\left(1-\dfrac{2}{\beta a+1}\right)+1+\left(\beta-1\right)a\\
+ & =\left(\beta a\right)^{2}\left(\beta a+1-2\right)+\beta a+1+\left(a\beta-a\right)\left(\beta a+1\right)\\
+ & =\left(\beta a\right)^{2}\left(\beta a-1\right)+\beta a+1+\left[\left(a\beta\right)^{2}+a\beta-\beta a^{2}-a\right]\\
+ & =\left(\beta a\right)^{3}+2a\beta+1-\beta a^{2}-a\\
+ & =\beta^{3}a^{3}-\beta a^{2}+\left(2\beta-1\right)a+1
+\end{align*}
