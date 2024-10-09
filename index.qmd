@@ -1,2 +1,22 @@
 # Preface {.unnumbered}
 
+
+
+
+
+# Apoyo de Proyectos. 
+
+La idea es mostrar ideas simples de diferentes proyectos donde se plantea aplicar aprendizaje reforzado. 
+
+## Futbol.
+Considere un partido de futbol convencional. Donde tenemos 2 equipos de 11 jugadores con 1 portería por equipo una zona de saque central.
+Entonces definiremos un modelo discreto con etapas finitas $T=\{0,1,2,\ldots, N\}$. Luego, definiremos nuestro conjunto de estados $Z$ como un espacio bidimensional definido por regiones simulando el campo de juego 
+$$
+Z = X\times Y, X = \{0,1,2,\ldots, n_X\}, Y = \{0,1,2,\ldots, n_Y\},
+$$
+
+donde $n_x,n_y$ son el número de celdas horizontales y verticales que posee nuestro campo.  
+
+## Inversiones.
+
+## SIRV.
