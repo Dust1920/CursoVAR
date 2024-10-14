@@ -3,12 +3,14 @@ project:
 
 book:
   title: "CursoVAR"
-  author: "Norah Jones"
+  author: "David Peña Peralta"
   date: "14/10/2024"
   chapters:
-    - index.qmd
     - intro.qmd
-    - summary.qmd
+    - InventoryModel.qmd
+    - InversionModel.qmd
+    - SoccerModel.qmd
+    - SIRVModel.qmd
     - references.qmd
 
 bibliography: references.bib
