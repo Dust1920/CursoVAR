@@ -6,7 +6,7 @@ book:
   author: "David Peña Peralta"
   date: "14/10/2024"
   chapters:
-    - intro.qmd
+    - index.qmd
     - InventoryModel.qmd
     - InversionModel.qmd
     - SoccerModel.qmd
