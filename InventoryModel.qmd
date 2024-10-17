@@ -1,2 +1,49 @@
 # Modelo de Inventario
 ## Introducción.
+
+Los modelos de inventario pretenden simular el comportamiento de una bodega, por 
+ejemplo las de Amazon. Donde el objetivo general es minimizar el costo por 
+utilizar la bodega. Dependiendo el modelo se pueden considerar costos varios 
+como pueden ser
+
+* Costo por almacenaje: Costo de mantener una unidad del producto en la bodega una unidad de tiempo. 
+* Costo por mantenimiento: Costo por mantener la bodega en un funcionamiento óptimo. 
+* Costo por Mano de Obra: Costo por el personal que atiende la bodega, entre otros. 
+
+Para nuestro ejemplo cambiaremos la bodega por un estante de algun supermercado, 
+por decir un establecimiento. A partir de un análisis básico es claro que el estante 
+posee las siguientes variables
+
+* Cantidad inicial del producto: $x_0$.
+* Capacidad máxima del estante: $K$.
+
+Al estar en un supermercado, sabemos que existirá cierta demanda del producto, es decir, para cada 
+unidad de tiempo $t$ habrá cierta cantidad del producto que salga del estante, la denotaremos como 
+$D_{t}$. En el caso más simple, la cantidad de producto para el dia siguiente $x_{t+1}$ esta dado por 
+
+$$
+x_{t+1} = (x_t - D_t)^+,
+$$
+
+donde $(\cdot)^+ = \max\{\cdot, 0\}$, esto porque no puede haber productos negativos. Sin embargo, 
+en este caso eventualmente el producto se terminará y ya no se podrá satisfacer la demanda, entonces 
+al final de cada periodo debemos solicitar $a$ del producto para rellenar el estante. Entonces 
+
+$$
+x_{t+1} = (x_t + a_t - D_t)^+.
+$$
+
+Esto ya convierte el modelo de inventario en un problema de control considerando como función de recompensa $R_t$
+
+$$
+R_{t} = V \min\{D_t,x_t + a_t\} - C a_t, R(x_0, \pi) = \sum_{t = 1}^T R_t(D_t,x_t,a_t),
+$$
+
+donde $\pi = (a_0,\ldots, a_{T})$. En este caso estamos suponiendo que el producto llega de forma instantanea al 
+establecimiento, esto puede cambiarse con $a_t = (u_t * t_a, p_t)$, donde $u_t=\{0,1\}$ indica si se solicitó 
+producto y $t_a$ es el tiempo que tardará en llegar y $p_t = u_tp_t$. Notemos que aquí 
+
+$$
+t_a\sim \exp(\lambda)
+$$
+
