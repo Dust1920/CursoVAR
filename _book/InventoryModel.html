@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>CursoVAR – inventorymodel</title>
+<title>CursoVAR - 2&nbsp; Modelo de Inventario</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -62,10 +62,12 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
-<body class="nav-sidebar floating fullcontent">
+<body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -74,7 +76,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./InventoryModel.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">InventoryModel.html</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./InventoryModel.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modelo de Inventario</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -108,13 +110,13 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./InventoryModel.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">InventoryModel.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modelo de Inventario</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./InversionModel.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">InversionModel.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Modelo de Inversión</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -140,14 +142,62 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introducción." id="toc-introducción." class="nav-link active" data-scroll-target="#introducción."><span class="header-section-number">2.1</span> Introducción.</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modelo de Inventario</span></h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
 
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="introducción." class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="introducción."><span class="header-section-number">2.1</span> Introducción.</h2>
+<p>Los modelos de inventario pretenden simular el comportamiento de una bodega. Por ejemplo las de Amazon. Donde el objetivo general es minimizar el costo por utilizar la bodega Dependiendo el modelo se pueden considerar costos varios como pueden ser * Costo por almacenaje: Costo de mantener una unidad del producto en la bodega una unidad de tiempo. * Costo por mantenimiento: Costo por mantener la bodega en un funcionamiento óptimo. * Costo por Mano de Obra: Costo por el personal que atiende la bodega, entre otros.</p>
+<p>Para nuestro ejemplo cambiaremos la bodega por un estante de algun supermercado, por decir un establecimiento. A partir de un análisis básico es claro que el estante posee las siguientes variables</p>
+<ul>
+<li>Cantidad inicial del producto: <span class="math inline">\(x_0\)</span>.</li>
+<li>Capacidad máxima del estante: <span class="math inline">\(K\)</span>.</li>
+</ul>
+<p>Al estar en un supermercado, sabemos que existirá cierta demanda del producto, es decir, para cada unidad de tiempo <span class="math inline">\(t\)</span> habrá cierta cantidad del producto que salga del estante, la denotaremos como <span class="math inline">\(D_{t}\)</span>. En el caso más simple, la cantidad de producto para el dia siguiente <span class="math inline">\(x_{t+1}\)</span> esta dado por</p>
+<p><span class="math display">\[
+x_{t+1} = (x_t - D_t)^+,
+\]</span></p>
+<p>donde <span class="math inline">\((\cdot)^+ = \max\{\cdot, 0\}\)</span>, esto porque no puede haber productos negativos. Sin embargo, en este caso eventualmente el producto se terminará y ya no se podrá satisfacer la demanda, entonces al final de cada periodo debemos solicitar <span class="math inline">\(a\)</span> del producto para rellenar el estante. Entonces</p>
+<p><span class="math display">\[
+x_{t+1} = (x_t + a_t - D_t)^+.
+\]</span></p>
+<p>Esto ya convierte el modelo de inventario en un problema de control considerando como función de recompensa <span class="math inline">\(R_t\)</span></p>
+<p><span class="math display">\[
+R_{t} = V \min\{D_t,x_t + a_t\} - C a_t, R(x_0, \pi) = \sum_{t = 1}^T R_t(D_t,x_t,a_t),
+\]</span></p>
+<p>donde <span class="math inline">\(\pi = (a_0,\ldots, a_{T})\)</span>. En este caso estamos suponiendo que el producto llega de forma instantanea al establecimiento, esto puede cambiarse con <span class="math inline">\(a_t = (u_t * t_a, p_t)\)</span>, donde <span class="math inline">\(u_t=\{0,1\}\)</span> indica si se solicitó producto y <span class="math inline">\(t_a\)</span> es el tiempo que tardará en llegar y <span class="math inline">\(p_t = u_tp_t\)</span>. Notemos que aquí</p>
+<p><span class="math display">\[
+t_a\sim \exp(\lambda)
+\]</span></p>
+
+
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -391,7 +441,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
   <div class="nav-page nav-page-next">
       <a href="./InversionModel.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">InversionModel.html</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Modelo de Inversión</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

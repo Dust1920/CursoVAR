@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>CursoVAR – inversionmodel</title>
+<title>CursoVAR - 3&nbsp; Modelo de Inversión</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -62,10 +62,12 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
-<body class="nav-sidebar floating fullcontent">
+<body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -74,7 +76,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./InversionModel.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">InversionModel.html</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./InversionModel.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Modelo de Inversión</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -108,13 +110,13 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./InventoryModel.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">InventoryModel.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modelo de Inventario</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./InversionModel.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">InversionModel.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Modelo de Inversión</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -140,14 +142,74 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introducción" id="toc-introducción" class="nav-link active" data-scroll-target="#introducción"><span class="header-section-number">3.1</span> Introducción</a></li>
+  <li><a href="#objetivo." id="toc-objetivo." class="nav-link" data-scroll-target="#objetivo."><span class="header-section-number">3.2</span> Objetivo.</a></li>
+  <li><a href="#modelación" id="toc-modelación" class="nav-link" data-scroll-target="#modelación"><span class="header-section-number">3.3</span> Modelación</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Modelo de Inversión</span></h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
 
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="introducción" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="introducción"><span class="header-section-number">3.1</span> Introducción</h2>
+<p>Siempre se ha dicho que debemos tener una buena gestión de nuestros ingresos, controlar nuestros gastos a modo que siempre tengamos un ahorro para proyectos a corto, mediano o largo plazo. Sin embargo, el tema de la inflación perjudica la intención del ahorro.</p>
+<p>La <em>inflación</em> es el aumento progresivo del precio de calidad de vida. Con el tiempo los productos aumentan de valor por lo tanto nuestros ahorros cada vez alcanzan para menos. Por lo anterior es que se menciona una herramienta similar al ahorro, las inversiones.</p>
+<p>Las inversiones son la alternativa idonea al ahorro. Esto porque estás pueden generar una ganancia en función de la cantidad invertida. Dentro de las inversiones existen de dos tipos.</p>
+<ul>
+<li>Inversiones de Renta Fija: Sabes cuanto recibiras al final del plazo.</li>
+<li>Inversiones de Renta Variable: NO sabes cuanto recibiras al final del plazo.</li>
+</ul>
+<p>Cabe mencionar que en las inversiones de renta variable si es posible tener pérdidas, según la naturaleza de la inversión.</p>
+</section>
+<section id="objetivo." class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="objetivo."><span class="header-section-number">3.2</span> Objetivo.</h2>
+<p>Considerando un periodo mayor a 7 años, el recomendando para usar la renta variable, y un conjunto de <span class="math inline">\(N\)</span> activos. Queremos elegir los activos en los que invertiremos y la cantidad de dinero invertida en cada uno para maximizar la ganancia.</p>
+</section>
+<section id="modelación" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="modelación"><span class="header-section-number">3.3</span> Modelación</h2>
+<p>Para definir el Proceso de Decisión de Markov, dentro de nuestra problematica, nuestro proceso <span class="math inline">\(M_t\)</span> medirá el dinero total al tiempo <span class="math inline">\(t\)</span>, siendo <span class="math inline">\(M_0\)</span> la cantidad antes de invertir. Lo anterior señala a <span class="math inline">\(R\)</span> como el conjunto de estados. El conjunto de acciones está definido como sigue</p>
+<p><span class="math display">\[
+\mathcal{A}= \mathbb{R}^N.
+\]</span></p>
+<p>Para <span class="math inline">\(a\in \mathcal{A}\)</span> tenemos <span class="math inline">\(a=(\alpha_1,\alpha_2,\ldots,\alpha_N)\)</span>, donde <span class="math inline">\(\alpha_i\)</span> es la cantidad a invertir con respecto a <span class="math inline">\(x_t\)</span>. Al invertir uno debe elegir de forma adecuada los activos para maximizar la ganancia.</p>
+<p><span class="math display">\[
+G(x_0,T) = x_T - x_0,
+\]</span></p>
+<p>donde <span class="math inline">\(x_0\)</span> es la inversión inicial y <span class="math inline">\(x_T\)</span> es la inversión final. Entonces considerando <span class="math inline">\(K\)</span> activos, tenemos que</p>
+<p><span class="math display">\[
+    x_0 = \sum_{k=1}^K x_0(k),x_t(k) = \alpha_k x_t,
+\]</span></p>
+<p>donde <span class="math inline">\(x_t(k)\)</span> es la cantidad invertida en el activo <span class="math inline">\(k\)</span>, notemos que siempre será una proporción con respecto a <span class="math inline">\(x_0\)</span>. Entonces la dinámica estará dada por lo siguiente</p>
+<p><span class="math display">\[
+    x_{t+1} = \sum_{k=1}^Ke_k x_t(k),
+\]</span></p>
+<p>donde <span class="math inline">\(e_k\)</span> es el rendimiento del activo <span class="math inline">\(k\)</span>. Notemos que si <span class="math inline">\(e_k&gt;1\)</span> tenemos una ganancia mientras que si <span class="math inline">\(e_k&lt;1\)</span> tenemos una pérdida.</p>
+
+
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -386,7 +448,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./InventoryModel.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">InventoryModel.html</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modelo de Inventario</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

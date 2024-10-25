@@ -1,0 +1,30 @@
+[
+  {
+    "objectID": "InventoryModel.html#introducción.",
+    "href": "InventoryModel.html#introducción.",
+    "title": "2  Modelo de Inventario",
+    "section": "2.1 Introducción.",
+    "text": "2.1 Introducción.\nLos modelos de inventario pretenden simular el comportamiento de una bodega. Por ejemplo las de Amazon. Donde el objetivo general es minimizar el costo por utilizar la bodega Dependiendo el modelo se pueden considerar costos varios como pueden ser * Costo por almacenaje: Costo de mantener una unidad del producto en la bodega una unidad de tiempo. * Costo por mantenimiento: Costo por mantener la bodega en un funcionamiento óptimo. * Costo por Mano de Obra: Costo por el personal que atiende la bodega, entre otros.\nPara nuestro ejemplo cambiaremos la bodega por un estante de algun supermercado, por decir un establecimiento. A partir de un análisis básico es claro que el estante posee las siguientes variables\n\nCantidad inicial del producto: \\(x_0\\).\nCapacidad máxima del estante: \\(K\\).\n\nAl estar en un supermercado, sabemos que existirá cierta demanda del producto, es decir, para cada unidad de tiempo \\(t\\) habrá cierta cantidad del producto que salga del estante, la denotaremos como \\(D_{t}\\). En el caso más simple, la cantidad de producto para el dia siguiente \\(x_{t+1}\\) esta dado por\n\\[\nx_{t+1} = (x_t - D_t)^+,\n\\]\ndonde \\((\\cdot)^+ = \\max\\{\\cdot, 0\\}\\), esto porque no puede haber productos negativos. Sin embargo, en este caso eventualmente el producto se terminará y ya no se podrá satisfacer la demanda, entonces al final de cada periodo debemos solicitar \\(a\\) del producto para rellenar el estante. Entonces\n\\[\nx_{t+1} = (x_t + a_t - D_t)^+.\n\\]\nEsto ya convierte el modelo de inventario en un problema de control considerando como función de recompensa \\(R_t\\)\n\\[\nR_{t} = V \\min\\{D_t,x_t + a_t\\} - C a_t, R(x_0, \\pi) = \\sum_{t = 1}^T R_t(D_t,x_t,a_t),\n\\]\ndonde \\(\\pi = (a_0,\\ldots, a_{T})\\). En este caso estamos suponiendo que el producto llega de forma instantanea al establecimiento, esto puede cambiarse con \\(a_t = (u_t * t_a, p_t)\\), donde \\(u_t=\\{0,1\\}\\) indica si se solicitó producto y \\(t_a\\) es el tiempo que tardará en llegar y \\(p_t = u_tp_t\\). Notemos que aquí\n\\[\nt_a\\sim \\exp(\\lambda)\n\\]"
+  },
+  {
+    "objectID": "InversionModel.html#introducción",
+    "href": "InversionModel.html#introducción",
+    "title": "3  Modelo de Inversión",
+    "section": "3.1 Introducción",
+    "text": "3.1 Introducción\nSiempre se ha dicho que debemos tener una buena gestión de nuestros ingresos, controlar nuestros gastos a modo que siempre tengamos un ahorro para proyectos a corto, mediano o largo plazo. Sin embargo, el tema de la inflación perjudica la intención del ahorro.\nLa inflación es el aumento progresivo del precio de calidad de vida. Con el tiempo los productos aumentan de valor por lo tanto nuestros ahorros cada vez alcanzan para menos. Por lo anterior es que se menciona una herramienta similar al ahorro, las inversiones.\nLas inversiones son la alternativa idonea al ahorro. Esto porque estás pueden generar una ganancia en función de la cantidad invertida. Dentro de las inversiones existen de dos tipos.\n\nInversiones de Renta Fija: Sabes cuanto recibiras al final del plazo.\nInversiones de Renta Variable: NO sabes cuanto recibiras al final del plazo.\n\nCabe mencionar que en las inversiones de renta variable si es posible tener pérdidas, según la naturaleza de la inversión."
+  },
+  {
+    "objectID": "InversionModel.html#objetivo.",
+    "href": "InversionModel.html#objetivo.",
+    "title": "3  Modelo de Inversión",
+    "section": "3.2 Objetivo.",
+    "text": "3.2 Objetivo.\nConsiderando un periodo mayor a 7 años, el recomendando para usar la renta variable, y un conjunto de \\(N\\) activos. Queremos elegir los activos en los que invertiremos y la cantidad de dinero invertida en cada uno para maximizar la ganancia."
+  },
+  {
+    "objectID": "InversionModel.html#modelación",
+    "href": "InversionModel.html#modelación",
+    "title": "3  Modelo de Inversión",
+    "section": "3.3 Modelación",
+    "text": "3.3 Modelación\nPara definir el Proceso de Decisión de Markov, dentro de nuestra problematica, nuestro proceso \\(M_t\\) medirá el dinero total al tiempo \\(t\\), siendo \\(M_0\\) la cantidad antes de invertir. Lo anterior señala a \\(R\\) como el conjunto de estados. El conjunto de acciones está definido como sigue\n\\[\n\\mathcal{A}= \\mathbb{R}^N.\n\\]\nPara \\(a\\in \\mathcal{A}\\) tenemos \\(a=(\\alpha_1,\\alpha_2,\\ldots,\\alpha_N)\\), donde \\(\\alpha_i\\) es la cantidad a invertir con respecto a \\(x_t\\). Al invertir uno debe elegir de forma adecuada los activos para maximizar la ganancia.\n\\[\nG(x_0,T) = x_T - x_0,\n\\]\ndonde \\(x_0\\) es la inversión inicial y \\(x_T\\) es la inversión final. Entonces considerando \\(K\\) activos, tenemos que\n\\[\n    x_0 = \\sum_{k=1}^K x_0(k),x_t(k) = \\alpha_k x_t,\n\\]\ndonde \\(x_t(k)\\) es la cantidad invertida en el activo \\(k\\), notemos que siempre será una proporción con respecto a \\(x_0\\). Entonces la dinámica estará dada por lo siguiente\n\\[\n    x_{t+1} = \\sum_{k=1}^Ke_k x_t(k),\n\\]\ndonde \\(e_k\\) es el rendimiento del activo \\(k\\). Notemos que si \\(e_k&gt;1\\) tenemos una ganancia mientras que si \\(e_k&lt;1\\) tenemos una pérdida."
+  }
+]
