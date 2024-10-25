@@ -1,0 +1,58 @@
+\newcommand{\ACTIONSET}{\mathcal{A}}
+
+# Modelo de Inversión
+## Introducción
+Siempre se ha dicho que debemos tener una buena gestión de nuestros ingresos, 
+controlar nuestros gastos a modo que siempre tengamos un ahorro para proyectos a 
+corto, mediano o largo plazo. Sin embargo, el tema de la inflación perjudica la 
+intención del ahorro. 
+
+La *inflación* es el aumento progresivo del precio de calidad de vida. Con el tiempo 
+los productos aumentan de valor por lo tanto nuestros ahorros cada vez alcanzan para 
+menos. Por lo anterior es que se menciona una herramienta similar al ahorro, las 
+inversiones. 
+
+Las inversiones son la alternativa idonea al ahorro. Esto porque estás pueden 
+generar una ganancia en función de la cantidad invertida. Dentro de las inversiones existen de dos tipos.
+
+* Inversiones de Renta Fija: Sabes cuanto recibiras al final del plazo.
+* Inversiones de Renta Variable: NO sabes cuanto recibiras al final del plazo.
+
+Cabe mencionar que en las inversiones de renta variable si es posible tener pérdidas, 
+según la naturaleza de la inversión.
+
+## Objetivo.
+Considerando un periodo mayor a 7 años, el recomendando para usar la renta variable, 
+y un conjunto de $N$ activos. Queremos elegir los activos en los que invertiremos y 
+la cantidad de dinero invertida en cada uno para maximizar la ganancia. 
+
+## Modelación
+Para definir el Proceso de Decisión de Markov, dentro de nuestra problematica, 
+nuestro proceso $M_t$ medirá el dinero total al tiempo $t$, siendo $M_0$ la cantidad antes de invertir. Lo anterior señala a $R$ como el conjunto de estados. El conjunto de acciones está definido como sigue 
+
+$$
+\ACTIONSET = \mathbb{R}^N.
+$$
+
+Para $a\in \ACTIONSET$ tenemos $a=(\alpha_1,\alpha_2,\ldots,\alpha_N)$, donde $\alpha_i$ es la cantidad a invertir con respecto a $x_t$. Al invertir uno debe elegir de forma adecuada los activos para maximizar la ganancia. 
+
+$$
+G(x_0,T) = x_T - x_0,
+$$
+
+donde $x_0$ es la inversión inicial y $x_T$ es la inversión final. Entonces considerando $K$ activos, tenemos que 
+
+$$
+    x_0 = \sum_{k=1}^K x_0(k),x_t(k) = \alpha_k x_t,
+$$
+
+donde $x_t(k)$ es la cantidad invertida en el activo $k$, notemos que siempre será una proporción con respecto a $x_0$. Entonces 
+la dinámica estará dada por lo siguiente 
+
+$$
+    x_{t+1} = \sum_{k=1}^Ke_k x_t(k),
+$$
+ 
+donde $e_k$ es el rendimiento del activo $k$. Notemos que si $e_k>1$ tenemos una ganancia mientras que si $e_k<1$ tenemos una pérdida. 
+
+

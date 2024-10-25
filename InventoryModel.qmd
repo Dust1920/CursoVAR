@@ -1,11 +1,7 @@
 # Modelo de Inventario
 ## Introducción.
 
-Los modelos de inventario pretenden simular el comportamiento de una bodega, por 
-ejemplo las de Amazon. Donde el objetivo general es minimizar el costo por 
-utilizar la bodega. Dependiendo el modelo se pueden considerar costos varios 
-como pueden ser
-
+Los modelos de inventario pretenden simular el comportamiento de una bodega. Por ejemplo las de Amazon. Donde el objetivo general es minimizar el costo por utilizar la bodega Dependiendo el modelo se pueden considerar costos varios como pueden ser 
 * Costo por almacenaje: Costo de mantener una unidad del producto en la bodega una unidad de tiempo. 
 * Costo por mantenimiento: Costo por mantener la bodega en un funcionamiento óptimo. 
 * Costo por Mano de Obra: Costo por el personal que atiende la bodega, entre otros. 
